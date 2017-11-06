@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vinculacion de datos dinamicos en VueJS</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="alert alert-info">
+			<p>v-bind, nos permite modificar los atributos de un elemento y vincularle un dato de manera dinamica</p>
+		</div>
+	</div>
+
+	<div id="main" class="container-fluid">
+		<input type="text" v-model="info">
+		<p v-bind:title="info">Texto de relleno... {{ info }}</p>
+	</div>
+
+	
+
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: '#main',
+			data: {
+				info: ''
+			}
+		});
+	</script>
+</body>
+</html>

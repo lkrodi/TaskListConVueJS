@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Filtros con Computed properties de Vue.JS</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="alert alert-info">
+			<p>Las propiedades <b>computadas</b> se utilizan mas que nada para separar la logica del funcionamiento, es decir, en nuestro template o vista o elemento mostramos el resultado, mas no el funcionamiento interno del dato.</p>
+			<p>Para declarar una propiedad computada, se define luego de las propiedad iniciales del ciclo de instancia vue. De esta manera:</p>
+			<p><b>computed: { logica...interna}</b></p>
+			<p><b>return this.lists.filter((item) => item.name.includes(this.name))</b>, esto funciona que va a retornar cuando se filtre por un valor x(item) dentro de nuestra propiedad modelo <b>lists</b> y luego a la propiedad modelo lo incluya el resultado de la busqueda</p>
+		</div>
+	</div>
+
+	<div id="main" class="container-fluid">
+		<div class="row">
+			<div class="col-sm-4">
+				<h1>Filtros VueJS</h1>
+				<button class="btn btn-success" v-on:click="getUsers()" v-if="!lists.length">Listar</button>
+				<ul class="list-group" v-else>
+					<li class="list-group-item">
+						<input type="text" placeholder="Buscar" class="form-control" v-model="name">
+					</li>
+					<li class="list-group-item" v-for="item in searchUser" v-text="item.name"></li>
+				</ul>
+			</div>
+			<div class="col-sm-8">
+				<h1>JSON</h1>
+				<pre>
+					{{ $data | json }}
+				</pre>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+	<script type="text/javascript">
+		const app = new Vue({
+			el: '#main',
+			data: {
+				lists: [],
+				name: '',
+			},
+			methods: {
+				getUsers: function() {
+					var url_users = 'https://jsonplaceholder.typicode.com/users';
+					axios.get(url_users).then( response => {
+						this.lists = response.data;
+					})
+				}
+			},
+			computed: {
+				searchUser: function() {
+					//Hace una busqueda por el filtro de un valor dado(item), ahi mismo le dice que lo incluya ese resultado en el propiedad modelo name
+					return this.lists.filter((item) => item.name.includes(this.name));
+				}
+			}
+		});
+	</script>
+</body>
+</html>

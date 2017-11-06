@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Peticiones AJAX y JSON con vue-axios</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="alert alert-info">
+			<p>La gran diferencia con vuew-resource. Es que este utiliza promesas en vez de callbacks</p>
+			<p>vue-axios, es una librería para utilizar AJAX y JSON</p>
+		</div>
+	</div>
+
+	<div id="main" class="container-fluid">
+		<div class="row">
+			<div class="col-sm-4">
+				<h1>Lista de usuarios AJAX- JSON</h1>
+				<ul class="list-group">
+					<li class="list-group-item" v-for="item in lists">
+						{{ item.name }}
+					</li>
+				</ul>
+			</div>
+			<div class="col-sm-8">
+				<h1>JSON</h1>
+				<pre>
+					{{ $data | json }}
+				</pre>
+			</div>
+		</div>
+	</div>
+
+	
+
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+	<script type="text/javascript">
+		var url_users = 'https://jsonplaceholder.typicode.com/users';
+		new Vue({
+			el: '#main',
+			//Esta propiedad pertenece a la etapa de creacion de la instancia de Vue
+			created: function() {
+				this.getUsers();
+			},
+			data: {
+				lists: []
+			},
+			//Los metodos a utilizar
+			methods: {
+				getUsers: function() {
+					//Con esto hace la peticion ajax  hacia la url para que luego nos devuelva una respuesta de tipo json
+					//this.$http.get(url_users).then(function(response) 
+					axios.get(url_users).then(response => {
+						this.lists = response.data;
+					});
+				}
+			}
+		});
+	</script>
+</body>
+</html>

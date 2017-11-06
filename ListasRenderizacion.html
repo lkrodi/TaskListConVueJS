@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Listas y Renderizacion</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="alert alert-info">
+			<p>-Utilizando v-for para recorrer los elementos de mi dato asignado en la directiva de VueJS</p>
+			<p>-el, sirve para seleccionar al elemento padre</p>
+			<p>-data, sirve para definir nuestros datos</p>
+			<p>-methods, sirve para definir nuestros metodos que se ejucataran una vez realizada alguna accion de nuesta Wep App</p>
+			<p>v-model, sirve para definir el "value" por asi decirlo de ese elemento</p>
+			<p>v-on:keyup.enter, sirve como un evento, llama a un metodo definido en nuestra clase new Vue y empieza agregar a la lista ul(products) dinamicamente</p>
+			<p>v-text, sirve para mostrar un elemento de alguna lista luego de haber recorrido un v-for</p>
+		</div>
+	</div>
+
+	<div id="main" class="container-fluid">
+		<h1 class="text-left title">List of products</h1>
+		<ul>
+			<li v-for="item in products" v-text="item"></li>
+		</ul>
+		<input type="text" v-model="name" v-on:keyup.enter="addName">
+	</div>
+
+	
+
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			//Aqui lo vincula con el elemento html
+			el: '#main',
+			//Define la data inicial a utilizar
+			data: {
+				products: ['Pear', 'Orange', 'Banana']
+			},
+			name: '',
+			//Define los metodos a utilizar
+			methods: {
+				//Agrega lo que esta en la caja de texto name a la lista ul(products)
+				addName: function(){
+					this.products.push(this.name);
+					this.name= '';
+				}
+			}
+		});
+	</script>
+</body>
+</html>

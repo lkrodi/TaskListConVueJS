@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Componentes en VueJS</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="alert alert-info">
+			<p>Los componentes son pequeños contenedores que albergan codigos <b>HTML, CSS y JAvascript</b></p>
+			<p>Estos pueden ser reutilizados en cualquier parte de nuestra aplicación web. Sirve principalmente para separar en pequeñas partes nuestra aplicación web cuando está es compleja.</p>
+			<p>El componente se convierte en una etiqueta html. Recordar!</p>
+		</div>
+	</div>
+
+	<div id="main" class="container-fluid">
+		<div class="row">
+			<div class="col-sm-4">
+				<h1>Albums</h1>
+				<common-list v-bind:lists="albums"></common-list>
+			</div>
+			<div class="col-sm-4">
+				<h1>Posts</h1>
+				<common-list v-bind:lists="posts"></common-list>
+			</div>
+			<div class="col-sm-4">
+				<h1>Photos</h1>
+				<common-list v-bind:lists="photos"></common-list>
+			</div>
+			<div class="col-sm-12">
+				<h1>JSON</h1>
+				<pre>
+					{{ $data | json }}
+				</pre>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+	<script type="text/javascript">
+		Vue.component('common-list', {
+			props: ['lists'],
+			template: '<ul class="list-group"><li v-for="item in lists" class="list-group-item">{{ item.title }}</li></ul>',
+		});
+
+		var urlPosts = 'https://jsonplaceholder.typicode.com/posts';
+		var urlAlbums = 'https://jsonplaceholder.typicode.com/albums';
+		var urlPhotos = 'https://jsonplaceholder.typicode.com/photos';
+
+		const app = new Vue({
+			el: '#main',
+			created: function() {
+				this.getPosts(),
+				this.getAlbums(),
+				this.getPhotos()
+			},
+			data: {
+				posts: [],
+				albums: [],
+				photos: [],
+			},
+			methods: {
+				getPosts: function() {
+					axios.get(urlPosts).then(response => {
+						this.posts = response.data
+					});
+				},
+				getAlbums: function() {
+					axios.get(urlAlbums).then(response => {
+						this.albums = response.data
+					});
+				},
+				getPhotos: function() {
+					axios.get(urlPhotos).then(response => {
+						this.photos = response.data
+					});
+				}
+			}
+		});
+	</script>
+</body>
+</html>

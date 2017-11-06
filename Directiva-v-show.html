@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Directiva v-show en Vue.JS</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="alert alert-info">
+			<p>Es lo que utilizamos para que algun elemento html haga algo</p>
+			<p>v-show, nos sirve para mostrar algo condicional en true o false</p>
+			<p>Por ejemplo aqui el boton aparece cuando el usuario haya escrito su email, de lo contrario se oculta automaticamente</p>
+			<p>Es importante recalcar, que v-show realiza un proceso de renderizacion, etc. La cual podria tardar en cargarse nuestra Web App, en cambio con las condiciones v-if y v-else es más rapido.</p>
+		</div>
+	</div>
+
+	<div id="main" class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Suscribete a mi canal ;)</h3>
+			</div>
+			<div class="col-md-5">
+				<input type="text" v-model="email" class="form-control">
+			</div>
+			<div class="col-md-1">
+				<!-- Aqui le estamos indicando si la variable del dato(input) esta vacia, entonces ocultalo, pero si hay contenido muestralo el boton. Es como una condicional -->
+				<input type="submit" v-show="email" class="btn btn-success">
+			</div>
+		</div>
+	</div>
+
+	
+
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+	<script type="text/javascript">
+		const app = new Vue({
+			el: '#main',
+			data: {
+				email: ''
+			}
+		});
+	</script>
+</body>
+</html>
